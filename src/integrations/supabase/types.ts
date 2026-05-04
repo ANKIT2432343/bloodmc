@@ -14,16 +14,237 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      faqs: {
+        Row: {
+          answer: string
+          id: string
+          question: string
+          sort_order: number
+          visible: boolean
+        }
+        Insert: {
+          answer: string
+          id?: string
+          question: string
+          sort_order?: number
+          visible?: boolean
+        }
+        Update: {
+          answer?: string
+          id?: string
+          question?: string
+          sort_order?: number
+          visible?: boolean
+        }
+        Relationships: []
+      }
+      homepage_sections: {
+        Row: {
+          content: Json
+          id: string
+          key: string
+          sort_order: number
+          subtitle: string | null
+          title: string | null
+          visible: boolean
+        }
+        Insert: {
+          content?: Json
+          id?: string
+          key: string
+          sort_order?: number
+          subtitle?: string | null
+          title?: string | null
+          visible?: boolean
+        }
+        Update: {
+          content?: Json
+          id?: string
+          key?: string
+          sort_order?: number
+          subtitle?: string | null
+          title?: string | null
+          visible?: boolean
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          admin_notes: string | null
+          created_at: string
+          currency: string
+          email: string | null
+          id: string
+          items: Json
+          minecraft_username: string
+          order_ref: string
+          status: string
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string
+          currency: string
+          email?: string | null
+          id?: string
+          items?: Json
+          minecraft_username: string
+          order_ref: string
+          status?: string
+          total: number
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string
+          currency?: string
+          email?: string | null
+          id?: string
+          items?: Json
+          minecraft_username?: string
+          order_ref?: string
+          status?: string
+          total?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      policy_pages: {
+        Row: {
+          content: string
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          category: string
+          color: string | null
+          created_at: string
+          description: string | null
+          enabled: boolean
+          featured: boolean
+          id: string
+          image_url: string | null
+          name: string
+          perks: Json
+          popular: boolean
+          price_inr: number
+          price_usd: number
+          short_description: string | null
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          enabled?: boolean
+          featured?: boolean
+          id?: string
+          image_url?: string | null
+          name: string
+          perks?: Json
+          popular?: boolean
+          price_inr?: number
+          price_usd?: number
+          short_description?: string | null
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          enabled?: boolean
+          featured?: boolean
+          id?: string
+          image_url?: string | null
+          name?: string
+          perks?: Json
+          popular?: boolean
+          price_inr?: number
+          price_usd?: number
+          short_description?: string | null
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +371,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
