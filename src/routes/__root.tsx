@@ -3,6 +3,8 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import appCss from "../styles.css?url";
 import { CartProvider } from "@/lib/cart";
 import { Toaster } from "@/components/ui/sonner";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
 
 function NotFoundComponent() {
   return (
@@ -69,10 +71,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const [qc] = useState(() => new QueryClient());
   return (
-    <CartProvider>
-      <Outlet />
-      <Toaster richColors position="top-right" />
-    </CartProvider>
+    <QueryClientProvider client={qc}>
+      <CartProvider>
+        <Outlet />
+        <Toaster richColors position="top-right" />
+      </CartProvider>
+    </QueryClientProvider>
   );
 }
