@@ -34,13 +34,17 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "BloodMC Store — Premium Ranks & Tags" },
+      { title: "BloodMC Store Premium Ranks & Tags" },
       { name: "description", content: "Official BloodMC network store. Buy premium ranks, exclusive tags and elite BedWars perks." },
       { name: "author", content: "BloodMC" },
-      { property: "og:title", content: "BloodMC Store" },
-      { property: "og:description", content: "Premium ranks, exclusive tags & elite BedWars perks." },
+      { property: "og:title", content: "BloodMC Store Premium Ranks & Tags" },
+      { property: "og:description", content: "Official BloodMC network store. Buy premium ranks, exclusive tags and elite BedWars perks." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "BloodMC Store Premium Ranks & Tags" },
+      { name: "twitter:description", content: "Official BloodMC network store. Buy premium ranks, exclusive tags and elite BedWars perks." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/9058e40b-61d0-40f8-9645-fb9b271f5283" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/9058e40b-61d0-40f8-9645-fb9b271f5283" },
     ],
     links: [
       {
