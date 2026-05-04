@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Skull, LayoutDashboard, ShoppingBag, Package, Settings, LogOut, HelpCircle, FileText } from "lucide-react";
+import { Skull, LayoutDashboard, ShoppingBag, Package, Settings, LogOut, HelpCircle, FileText, Tag, Users } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   component: AdminLayout,
@@ -80,6 +80,8 @@ const navItems = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/orders", label: "Orders", icon: ShoppingBag },
   { to: "/admin/products", label: "Products", icon: Package },
+  { to: "/admin/coupons", label: "Coupons", icon: Tag },
+  { to: "/admin/users", label: "Users & Wallets", icon: Users },
   { to: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { to: "/admin/policies", label: "Policies", icon: FileText },
   { to: "/admin/settings", label: "Settings", icon: Settings },
