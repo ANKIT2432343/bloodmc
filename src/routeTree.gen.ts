@@ -24,6 +24,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
+import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 
 const TermsRoute = TermsRouteImport.update({
@@ -101,6 +102,11 @@ const ProductsSlugRoute = ProductsSlugRouteImport.update({
   path: '/products/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminProductsRoute = AdminProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminOrdersRoute = AdminOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/tags': typeof TagsRoute
   '/terms': typeof TermsRoute
   '/admin/orders': typeof AdminOrdersRoute
+  '/admin/products': typeof AdminProductsRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -139,6 +146,7 @@ export interface FileRoutesByTo {
   '/tags': typeof TagsRoute
   '/terms': typeof TermsRoute
   '/admin/orders': typeof AdminOrdersRoute
+  '/admin/products': typeof AdminProductsRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/tags': typeof TagsRoute
   '/terms': typeof TermsRoute
   '/admin/orders': typeof AdminOrdersRoute
+  '/admin/products': typeof AdminProductsRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -178,6 +187,7 @@ export interface FileRouteTypes {
     | '/tags'
     | '/terms'
     | '/admin/orders'
+    | '/admin/products'
     | '/products/$slug'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -195,6 +205,7 @@ export interface FileRouteTypes {
     | '/tags'
     | '/terms'
     | '/admin/orders'
+    | '/admin/products'
     | '/products/$slug'
     | '/admin'
   id:
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
     | '/tags'
     | '/terms'
     | '/admin/orders'
+    | '/admin/products'
     | '/products/$slug'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -341,6 +353,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/products': {
+      id: '/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminProductsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/orders': {
       id: '/admin/orders'
       path: '/orders'
@@ -353,11 +372,13 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminOrdersRoute: typeof AdminOrdersRoute
+  AdminProductsRoute: typeof AdminProductsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminOrdersRoute: AdminOrdersRoute,
+  AdminProductsRoute: AdminProductsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
