@@ -6,10 +6,12 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// Deploy to Vercel: disable Cloudflare plugin and target Vercel for TanStack Start.
+// SPA mode: no server runtime needed (Supabase handles the backend).
+// This produces a static client build that deploys to Vercel as plain
+// static files — no Vercel framework adapter required.
 export default defineConfig({
   cloudflare: false,
   tanstackStart: {
-    target: "vercel",
+    spa: { enabled: true },
   },
 });
