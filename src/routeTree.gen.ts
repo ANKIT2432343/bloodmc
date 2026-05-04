@@ -15,8 +15,10 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as StoreRouteImport } from './routes/store'
 import { Route as RefundRouteImport } from './routes/refund'
 import { Route as RanksRouteImport } from './routes/ranks'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as OrderSuccessRouteImport } from './routes/order-success'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as CartRouteImport } from './routes/cart'
@@ -60,6 +62,11 @@ const RanksRoute = RanksRouteImport.update({
   path: '/ranks',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -68,6 +75,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const OrderSuccessRoute = OrderSuccessRouteImport.update({
   id: '/order-success',
   path: '/order-success',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -137,8 +149,10 @@ export interface FileRoutesByFullPath {
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
   '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/order-success': typeof OrderSuccessRoute
   '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
   '/ranks': typeof RanksRoute
   '/refund': typeof RefundRoute
   '/store': typeof StoreRoute
@@ -158,8 +172,10 @@ export interface FileRoutesByTo {
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
   '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/order-success': typeof OrderSuccessRoute
   '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
   '/ranks': typeof RanksRoute
   '/refund': typeof RefundRoute
   '/store': typeof StoreRoute
@@ -181,8 +197,10 @@ export interface FileRoutesById {
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
   '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/order-success': typeof OrderSuccessRoute
   '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
   '/ranks': typeof RanksRoute
   '/refund': typeof RefundRoute
   '/store': typeof StoreRoute
@@ -205,8 +223,10 @@ export interface FileRouteTypes {
     | '/cart'
     | '/checkout'
     | '/faq'
+    | '/login'
     | '/order-success'
     | '/privacy'
+    | '/profile'
     | '/ranks'
     | '/refund'
     | '/store'
@@ -226,8 +246,10 @@ export interface FileRouteTypes {
     | '/cart'
     | '/checkout'
     | '/faq'
+    | '/login'
     | '/order-success'
     | '/privacy'
+    | '/profile'
     | '/ranks'
     | '/refund'
     | '/store'
@@ -248,8 +270,10 @@ export interface FileRouteTypes {
     | '/cart'
     | '/checkout'
     | '/faq'
+    | '/login'
     | '/order-success'
     | '/privacy'
+    | '/profile'
     | '/ranks'
     | '/refund'
     | '/store'
@@ -271,8 +295,10 @@ export interface RootRouteChildren {
   CartRoute: typeof CartRoute
   CheckoutRoute: typeof CheckoutRoute
   FaqRoute: typeof FaqRoute
+  LoginRoute: typeof LoginRoute
   OrderSuccessRoute: typeof OrderSuccessRoute
   PrivacyRoute: typeof PrivacyRoute
+  ProfileRoute: typeof ProfileRoute
   RanksRoute: typeof RanksRoute
   RefundRoute: typeof RefundRoute
   StoreRoute: typeof StoreRoute
@@ -326,6 +352,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RanksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -338,6 +371,13 @@ declare module '@tanstack/react-router' {
       path: '/order-success'
       fullPath: '/order-success'
       preLoaderRoute: typeof OrderSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -453,8 +493,10 @@ const rootRouteChildren: RootRouteChildren = {
   CartRoute: CartRoute,
   CheckoutRoute: CheckoutRoute,
   FaqRoute: FaqRoute,
+  LoginRoute: LoginRoute,
   OrderSuccessRoute: OrderSuccessRoute,
   PrivacyRoute: PrivacyRoute,
+  ProfileRoute: ProfileRoute,
   RanksRoute: RanksRoute,
   RefundRoute: RefundRoute,
   StoreRoute: StoreRoute,
