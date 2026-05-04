@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 
 import appCss from "../styles.css?url";
 import { CartProvider } from "@/lib/cart";
+import { AuthProvider } from "@/lib/auth";
 import { Toaster } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
@@ -74,10 +75,12 @@ function RootComponent() {
   const [qc] = useState(() => new QueryClient());
   return (
     <QueryClientProvider client={qc}>
-      <CartProvider>
-        <Outlet />
-        <Toaster richColors position="top-right" />
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Outlet />
+          <Toaster richColors position="top-right" />
+        </CartProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      coupons: {
+        Row: {
+          applies_to: string
+          code: string
+          created_at: string
+          discount_type: string
+          discount_value: number
+          enabled: boolean
+          expires_at: string | null
+          id: string
+          max_uses: number | null
+          uses: number
+        }
+        Insert: {
+          applies_to?: string
+          code: string
+          created_at?: string
+          discount_type?: string
+          discount_value?: number
+          enabled?: boolean
+          expires_at?: string | null
+          id?: string
+          max_uses?: number | null
+          uses?: number
+        }
+        Update: {
+          applies_to?: string
+          code?: string
+          created_at?: string
+          discount_type?: string
+          discount_value?: number
+          enabled?: boolean
+          expires_at?: string | null
+          id?: string
+          max_uses?: number | null
+          uses?: number
+        }
+        Relationships: []
+      }
       faqs: {
         Row: {
           answer: string
@@ -71,42 +110,54 @@ export type Database = {
       orders: {
         Row: {
           admin_notes: string | null
+          coupon_code: string | null
           created_at: string
           currency: string
+          discount_amount: number
           email: string | null
           id: string
           items: Json
           minecraft_username: string
           order_ref: string
+          paid_with_balance: number
           status: string
           total: number
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           admin_notes?: string | null
+          coupon_code?: string | null
           created_at?: string
           currency: string
+          discount_amount?: number
           email?: string | null
           id?: string
           items?: Json
           minecraft_username: string
           order_ref: string
+          paid_with_balance?: number
           status?: string
           total: number
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           admin_notes?: string | null
+          coupon_code?: string | null
           created_at?: string
           currency?: string
+          discount_amount?: number
           email?: string | null
           id?: string
           items?: Json
           minecraft_username?: string
           order_ref?: string
+          paid_with_balance?: number
           status?: string
           total?: number
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -137,10 +188,12 @@ export type Database = {
           color: string | null
           created_at: string
           description: string | null
+          discount_percent: number
           enabled: boolean
           featured: boolean
           id: string
           image_url: string | null
+          is_topup: boolean
           name: string
           perks: Json
           popular: boolean
@@ -149,6 +202,7 @@ export type Database = {
           short_description: string | null
           slug: string
           sort_order: number
+          topup_amount: number
           updated_at: string
         }
         Insert: {
@@ -156,10 +210,12 @@ export type Database = {
           color?: string | null
           created_at?: string
           description?: string | null
+          discount_percent?: number
           enabled?: boolean
           featured?: boolean
           id?: string
           image_url?: string | null
+          is_topup?: boolean
           name: string
           perks?: Json
           popular?: boolean
@@ -168,6 +224,7 @@ export type Database = {
           short_description?: string | null
           slug: string
           sort_order?: number
+          topup_amount?: number
           updated_at?: string
         }
         Update: {
@@ -175,10 +232,12 @@ export type Database = {
           color?: string | null
           created_at?: string
           description?: string | null
+          discount_percent?: number
           enabled?: boolean
           featured?: boolean
           id?: string
           image_url?: string | null
+          is_topup?: boolean
           name?: string
           perks?: Json
           popular?: boolean
@@ -187,6 +246,31 @@ export type Database = {
           short_description?: string | null
           slug?: string
           sort_order?: number
+          topup_amount?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          balance: number
+          created_at: string
+          id: string
+          minecraft_username: string
+          updated_at: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string
+          id: string
+          minecraft_username: string
+          updated_at?: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          id?: string
+          minecraft_username?: string
           updated_at?: string
         }
         Relationships: []
