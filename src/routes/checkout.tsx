@@ -11,6 +11,7 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Tag as TagIcon, Wallet } from "lucide-react";
+import { useSiteSettings } from "@/lib/site-settings";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({ meta: [{ title: "Checkout — BloodMC" }] }),
@@ -30,16 +31,10 @@ function CheckoutPage() {
   const [couponCode, setCouponCode] = useState("");
   const [coupon, setCoupon] = useState<any | null>(null);
   const [useBalance, setUseBalance] = useState(true);
-  const [upiId, setUpiId] = useState("shadowroni@ybl");
+  const { settings } = useSiteSettings();
   const nav = useNavigate();
 
   useEffect(() => { if (profile?.minecraft_username) setUsername(profile.minecraft_username); }, [profile]);
-  useEffect(() => {
-    (async () => {
-      const { data } = await supabase.from("site_settings").select("value").eq("key", "upi_id").maybeSingle();
-      if (typeof data?.value === "string" && data.value) setUpiId(data.value);
-    })();
-  }, []);
 
   const discount = (() => {
     if (!coupon) return 0;
@@ -70,6 +65,7 @@ function CheckoutPage() {
     const order_ref = genRef();
     const orderItems = items.map((i) => ({
       id: i.id, name: i.name, slug: i.slug, category: i.category,
+      billing_type: i.billing_type || (i.is_topup ? "lifetime" : "monthly"),
       price: effectivePrice(i as any, currency),
     }));
     const { error } = await supabase.from("orders").insert({
@@ -80,7 +76,7 @@ function CheckoutPage() {
       currency,
       total: toPay,
       items: orderItems,
-      status: toPay === 0 && fromBalance > 0 ? "verifying" : "pending",
+      status: toPay === 0 && fromBalance > 0 ? "paid" : "pending",
       coupon_code: coupon?.code ?? null,
       discount_amount: discount,
       paid_with_balance: fromBalance,
@@ -154,7 +150,7 @@ function CheckoutPage() {
                 <div className="rounded-lg border border-primary/30 bg-primary/10 p-4 text-sm">
                   <p className="font-bold text-blood">UPI Payment</p>
                   <p className="mt-1">Pay <b>₹{toPay.toLocaleString("en-IN")}</b> to:</p>
-                  <p className="mt-1 font-mono text-base">{upiId}</p>
+                  <p className="mt-1 font-mono text-base">{settings.upi_id}</p>
                   <p className="mt-2 text-xs text-muted-foreground">After payment, open a Discord ticket with your Order ID.</p>
                 </div>
               ) : currency === "USD" && toPay > 0 ? (
@@ -175,7 +171,10 @@ function CheckoutPage() {
               <ul className="mt-4 space-y-3">
                 {items.map((it) => (
                   <li key={it.id} className="flex justify-between text-sm">
-                    <span><span className="text-muted-foreground uppercase text-[10px] mr-2">{it.category}</span>{it.name}</span>
+                    <span>
+                      <span className="text-muted-foreground uppercase text-[10px] mr-2">{it.category}</span>{it.name}
+                      {!it.is_topup && <span className="ml-2 text-xs text-muted-foreground">{it.billing_type === "lifetime" ? "Lifetime" : "Monthly"}</span>}
+                    </span>
                     <span>{symbol}{effectivePrice(it as any, currency).toFixed(currency === "INR" ? 0 : 2)}</span>
                   </li>
                 ))}
